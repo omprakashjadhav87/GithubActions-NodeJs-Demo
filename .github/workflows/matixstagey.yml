@@ -1,0 +1,27 @@
+name: build nodejs application
+on:
+   workflow_dispatch:
+   push:
+jobs:
+  job1:
+    continue-on-error: true
+    strategy:
+      matirx: # it is like loop to repeat the stps on each operating_system vlaue
+        operating_system: [ubuntu-latest,windows-latest]
+    runs-on: ${{ matirx.operating_system }}
+    steps:
+    - name: clone the repo
+      uses: actions/checkout@v6
+    - name: install nodejs
+      uses: actions/setup-node@v6
+      with:
+        node-version: 18
+        cache: 'npm'
+    - name: install node dependencies
+      run: npm ci
+    - name: execute test cases
+      run: npm test
+    - name: build the nodejs code
+      run: npm run build
+    - namme: deploy the code
+      run: echo 'deploy the code'
