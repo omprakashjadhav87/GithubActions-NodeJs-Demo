@@ -1,0 +1,35 @@
+name: build nodejs Application 
+on: 
+ workflow_dispatch:
+ push:
+jobs: 
+  job1:
+   needs: job2
+   continue-on-error: true
+   runs-on: ${{ matrix.operating-system }}
+   strategy: 
+     matrix: 
+      node-version: [16,18]
+      operating-system: [ubuntu-latest]
+   steps: 
+    - name: Clone the repo 
+      uses: actions/checkout@v4
+    - name: Install nodejs
+      uses: actions/setup-node@v4
+      with: 
+          node-version: ${{ node-version }}
+          cache: 'npm' 
+  job2:
+   strategy: 
+     matrix: 
+      node-version: [16,18]
+      operating-system: [windows-latest]
+   runs-on: ${{ operating-system }}
+   steps: 
+    - name: Clone the repo 
+      uses: actions/checkout@v4
+    - name: Install nodejs
+      uses: actions/setup-node@v4
+      with: 
+          node-version: ${{ node-version }}
+          cache: 'npm' 
