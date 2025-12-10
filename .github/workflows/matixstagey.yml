@@ -6,7 +6,7 @@ jobs:
   job1:
     continue-on-error: true
     strategy:
-      matirx: # it is like loop to repeat the stps on each operating_system vlaue
+      matrix: # it is like loop to repeat the stps on each operating_system vlaue
         operating_system: [ubuntu-latest,windows-latest]
     runs-on: ${{ matirx.operating_system }}
     steps:
