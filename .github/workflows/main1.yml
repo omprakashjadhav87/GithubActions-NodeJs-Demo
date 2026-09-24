@@ -1,0 +1,22 @@
+#Demo workflow with 2 jobs to run linux commands
+# triggered manually
+# jobs will run parallel
+# every jobs has its own runner/agent
+# to run set of commands we '|' symbol
+---
+name: workflow-runs linux comands
+on: workflow_dispatch
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Execute a linux command
+       run: echo "Hell All"
+  job2:
+     needs: job1
+     runs-on: ubuntu-22.04
+     steps:
+       - name: Execute set of linux commands
+         run: |
+          hostname -s
+          echo "Thanks you All"
